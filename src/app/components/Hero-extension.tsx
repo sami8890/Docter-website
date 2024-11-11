@@ -11,7 +11,7 @@ const SubHeroExtension = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Initial setup - hide elements
+      // Initial setup - hide elements and set opacity to 0
       gsap.set(".feature-card", { opacity: 0, y: 100 });
       gsap.set(".partner-logo", { opacity: 0, scale: 0.8 });
       gsap.set(".testimonial-card", { opacity: 0, x: -50 });
