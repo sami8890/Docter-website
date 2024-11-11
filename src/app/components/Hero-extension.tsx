@@ -18,7 +18,7 @@ const SubHeroExtension = () => {
       gsap.set(".cta-section", { opacity: 0 });
       gsap.set(".floating-circle", { scale: 0 });
 
-      // Trusted By Section Animation
+      // Trusted By Section 
       gsap.to(".section-title", {
         opacity: 1,
         y: 0,
