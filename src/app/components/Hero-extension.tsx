@@ -8,7 +8,6 @@ import { Stethoscope, Activity, ClipboardList, Star } from "lucide-react";
 
 const SubHeroExtension = () => {
   const component = useRef(null);
-  const tl = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
