@@ -1,112 +1,173 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { Heart, Stethoscope, Calendar, Shield, UserCheck } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Stethoscope,
+  Brain,
+  HeartPulse,
+  Microscope,
+  Waypoints,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
 
-// Define a type for the service content
-interface Service {
-    title: string;
-    description: string;
-    icon: JSX.Element;
-    link: string;
-    color: string;
-}
+const HealthServices = () => {
+  const [hoveredService, setHoveredService] = useState(null);
 
-const Services: React.FC = () => {
-    const servicesRef = useRef<HTMLDivElement>(null);
+  const services = [
+    {
+      icon: Stethoscope,
+      title: "Precision Diagnostics",
+      description:
+        "Advanced AI-powered diagnostic screening with 99.9% accuracy",
+      color: "text-emerald-500",
+      backgroundGradient: "from-emerald-500/10 to-emerald-600/10",
+    },
+    {
+      icon: Brain,
+      title: "Mental Wellness",
+      description:
+        "Comprehensive psychological support and personalized mental health strategies",
+      color: "text-blue-500",
+      backgroundGradient: "from-blue-500/10 to-blue-600/10",
+    },
+    {
+      icon: HeartPulse,
+      title: "Cardiac Care",
+      description:
+        "Cutting-edge cardiovascular monitoring and preventive healthcare",
+      color: "text-red-500",
+      backgroundGradient: "from-red-500/10 to-red-600/10",
+    },
+    {
+      icon: Microscope,
+      title: "Research & Innovation",
+      description:
+        "Pioneering medical research and breakthrough treatment development",
+      color: "text-purple-500",
+      backgroundGradient: "from-purple-500/10 to-purple-600/10",
+    },
+  ];
 
-    const services: Service[] = [
-        {
-            title: "Cardiology",
-            description:
-                "Comprehensive heart care, including diagnostics, prevention, and treatment for various heart conditions.",
-            icon: <Heart className="w-16 h-16 text-blue-600 mx-auto mb-4" />,
-            link: "/cardiology",
-            color: "bg-gradient-to-t from-blue-100",
-        },
-        {
-            title: "General Medicine",
-            description:
-                "Access to experienced general practitioners for all your everyday health concerns and wellness checks.",
-            icon: <Stethoscope className="w-16 h-16 text-green-600 mx-auto mb-4" />,
-            link: "/general-medicine",
-            color: "bg-gradient-to-t from-green-100",
-        },
-        {
-            title: "Appointment Scheduling",
-            description:
-                "Effortlessly book and manage appointments with top doctors at your convenience.",
-            icon: <Calendar className="w-16 h-16 text-orange-600 mx-auto mb-4" />,
-            link: "/appointment-scheduling",
-            color: "bg-gradient-to-t from-orange-100",
-        },
-        {
-            title: "Emergency Care",
-            description:
-                "Quick and effective emergency care available for critical health conditions, anytime, day or night.",
-            icon: <Shield className="w-16 h-16 text-red-600 mx-auto mb-4" />,
-            link: "/emergency-care",
-            color: "bg-gradient-to-t from-red-100",
-        },
-        {
-            title: "Mental Health Support",
-            description:
-                "Professional counseling, therapy, and mental health services to improve your overall well-being.",
-            icon: <UserCheck className="w-16 h-16 text-purple-600 mx-auto mb-4" />,
-            link: "/mental-health",
-            color: "bg-gradient-to-t from-purple-100",
-        },
-    ];
+  return (
+    <div className="relative min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#1e1e1e] overflow-hidden text-white py-16 mt-12">
+      {/* Animated Background Particles */}
+      <div className="absolute inset-0 z-0 opacity-30">
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: 0,
+            }}
+            animate={{
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+              ],
+              opacity: [0, 0.5, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "linear",
+            }}
+            className="absolute w-1 h-1 bg-blue-500 rounded-full"
+          />
+        ))}
+      </div>
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.fromTo(
-                ".service-item",
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.2,
-                    ease: "power2.out",
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl font-extrabold mb-4">
+            Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500">
+              Comprehensive Services
+            </span>
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Transforming healthcare through innovative technology, personalized
+            care, and advanced medical insights.
+          </p>
+        </motion.div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.2,
+              }}
+              onHoverStart={() => setHoveredService(null)}
+              onHoverEnd={() => setHoveredService(null)}
+              className={`
+                relative p-6 rounded-2xl border border-white/10 
+                bg-gradient-to-br ${service.backgroundGradient}
+                transition-all duration-300
+                ${
+                  hoveredService === index
+                    ? "scale-105 shadow-2xl border-white/30"
+                    : "hover:scale-105"
                 }
-            );
-        }, servicesRef);
+              `}
+            >
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-10 transition-opacity"></div>
 
-        return () => ctx.revert();
-    }, []);
+              <service.icon className={`w-12 h-12 mb-4 ${service.color}`} />
 
-    return (
-        <section ref={servicesRef} className="bg-gray-50 py-20 lg:py-32">
-            <div className="container mx-auto px-4">
-                <h2 className="text-3xl font-bold text-gray-900 text-center mb-12 md:text-4xl lg:text-5xl">
-                    Our Premium Healthcare Services
-                </h2>
+              <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
-                        <div
-                            key={index}
-                            className="service-item text-center p-6 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/40 relative"
-                        >
-                            <div
-                                className={`absolute top-0 left-0 right-0 bottom-0 ${service.color} opacity-30 rounded-lg z-0`}
-                            ></div>
-                            {service.icon}
-                            <h3 className="text-xl font-semibold text-gray-900 z-10">{service.title}</h3>
-                            <p className="text-gray-600 mt-4 z-10">{service.description}</p>
-                            <a
-                                href={service.link}
-                                className="inline-block mt-4 text-blue-600 font-semibold hover:text-blue-700 z-10"
-                            >
-                                Learn More
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+              <p className="text-gray-300 mb-6">{service.description}</p>
+
+              <Link
+                href={`/services/${service.title
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}`}
+                className="group flex items-center text-white/80 hover:text-white transition-colors"
+              >
+                Learn More
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="text-center mt-16"
+        >
+          <Link
+            href="/under-development"
+            className="group inline-flex items-center bg-gradient-to-r from-blue-600 to-emerald-600 px-8 py-4 rounded-lg text-white font-semibold hover:scale-105 transition-transform"
+          >
+            Schedule Comprehensive Consultation
+            <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
+      </div>
+    </div>
+  );
 };
 
-export default Services;
+export default HealthServices;
