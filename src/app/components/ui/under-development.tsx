@@ -74,7 +74,7 @@ const UnderDevelopment = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-xl text-gray-400 max-w-xl mx-auto"
           >
-            We're working hard to bring you an exciting new feature. Stay tuned for updates and improvements!
+            We&apos;re working hard to bring you an exciting new feature. Stay tuned for updates and improvements!
           </motion.p>
 
           {/* Development Icons */}
