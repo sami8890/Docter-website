@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Construction, Wrench, Code, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { Construction, Wrench, Code } from "lucide-react";
 
 const UnderDevelopment = () => {
   return (
@@ -42,6 +41,7 @@ const UnderDevelopment = () => {
 
       <div className="container mx-auto px-6 relative z-10 flex items-center justify-center min-h-screen">
         <div className="text-center space-y-8">
+
 
           {/* Animated Badge */}
           <motion.div
@@ -107,27 +107,6 @@ const UnderDevelopment = () => {
             </motion.div>
           </motion.div>
 
-          {/* Home Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="absolute top-6 left-6"
-          >
-            <Link href="/" className="block">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-2 bg-indigo-600 text-white px-6 py-3 rounded-full 
-                  shadow-lg hover:bg-indigo-700 transition-colors duration-300 
-                  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-8"
-              >
-                <ArrowLeft className="w-6 h-6" />
-                <span className="font-semibold">Back to Home</span>
-              </motion.button>
-            </Link>
-          </motion.div>
-          
         </div>
       </div>
     </div>
