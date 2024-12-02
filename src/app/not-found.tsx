@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Link from "next/link";
 import {
     AlertTriangle,
-    ArrowLeft,
+   
     Home,
     RefreshCw
 } from "lucide-react";
@@ -121,8 +121,8 @@ const Health404Page = () => {
                         ref={descriptionRef}
                         className="text-xl text-gray-400 mb-10 max-w-xl mx-auto"
                     >
-                        Oops! The page you're looking for seems to have taken an unexpected
-                        detour in our health network. Let's get you back on track.
+                        Oops! The page you&lsquo;re looking for seems to have taken an unexpected
+                        detour in our health network. Let&lsquo;s get you back on track.
                     </p>
 
                     <div
