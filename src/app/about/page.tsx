@@ -95,6 +95,8 @@ const AboutUs = () => {
   }, []);
 
   return (
+
+
     <div className="relative min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#1e1e1e] overflow-hidden text-white mt-20">
       {/* Animated Background Particles */}
       <div className="absolute inset-0 z-0 opacity-50">
@@ -251,6 +253,7 @@ const AboutUs = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

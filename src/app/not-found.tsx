@@ -1,4 +1,4 @@
-// /pages/404.tsx
+"use client";
 import Link from "next/link";
 
 const Custom404 = () => {

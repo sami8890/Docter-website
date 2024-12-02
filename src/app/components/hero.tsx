@@ -3,17 +3,31 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { HeartPulse } from "lucide-react";
-import {
-  Stethoscope,
-  ShieldCheck,
-  UserCheck,
-  Video,
-  ArrowRight,
-} from "lucide-react";
+import { HeartPulse, Stethoscope, ShieldCheck, UserCheck, Video, ArrowRight } from "lucide-react";
 
 const HealthHero = () => {
   const [activeFeature, setActiveFeature] = useState(0);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   const features = [
     {
       icon: Stethoscope,
@@ -40,31 +54,23 @@ const HealthHero = () => {
       setActiveFeature((prev) => (prev + 1) % features.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [features.length]);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#1e1e1e] overflow-hidden text-white ">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#1e1e1e] overflow-hidden text-white">
       {/* Animated Background Particles */}
       <div className="absolute inset-0 z-0 opacity-30">
         {[...Array(50)].map((_, i) => (
           <motion.div
             key={i}
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * windowSize.width,
+              y: Math.random() * windowSize.height,
               opacity: 0,
             }}
             animate={{
-              x: [
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-              ],
-              y: [
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-              ],
+              x: [Math.random() * windowSize.width],
+              y: [Math.random() * windowSize.height],
               opacity: [0, 0.5, 0],
             }}
             transition={{
@@ -78,11 +84,11 @@ const HealthHero = () => {
         ))}
       </div>
 
+      {/* Hero Section Content */}
       <div className="container mx-auto px-6 relative z-10 mt-11">
         <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[130vh]">
           {/* Left Content */}
           <div className="space-y-8">
-            {/* Animated Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -92,8 +98,6 @@ const HealthHero = () => {
               <HeartPulse className="w-4 h-4 mr-2 animate-pulse" />
               Next-Generation Healthcare Platform
             </motion.div>
-
-            {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -105,8 +109,6 @@ const HealthHero = () => {
                 Your Health Journey
               </span>
             </motion.h1>
-
-            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -117,8 +119,6 @@ const HealthHero = () => {
               comprehensive diagnostics, and personalized care to transform your
               wellness experience.
             </motion.p>
-
-            {/* Call to Action Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -140,24 +140,16 @@ const HealthHero = () => {
                 <UserCheck className="ml-2 group-hover:rotate-6 transition-transform" />
               </Link>
             </motion.div>
-
-            {/* Interactive Features Showcase */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-12"
-            >
+            <motion.div className="mt-12">
               <div className="flex space-x-4">
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
                     onClick={() => setActiveFeature(index)}
-                    className={`cursor-pointer p-4 rounded-xl transition-all duration-300 ${
-                      activeFeature === index
+                    className={`cursor-pointer p-4 rounded-xl transition-all duration-300 ${activeFeature === index
                         ? "bg-white/10 border border-white/20"
                         : "opacity-50 hover:opacity-75"
-                    }`}
+                      }`}
                   >
                     <feature.icon className={`w-8 h-8 ${feature.color}`} />
                   </motion.div>
@@ -182,48 +174,16 @@ const HealthHero = () => {
               </AnimatePresence>
             </motion.div>
           </div>
-
-          {/* Right Content - Advanced Visualization */}
+          {/* Right Visualization */}
           <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="relative z-10"
-            >
-              <div className="rounded-3xl shadow-2xl relative">
-                <Image
-                  src="/docter.png"
-                  alt="Advanced Healthcare Technology"
-                  width={700}
-                  height={800}
-                  className="object-cover w-full h-[600px]"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              </div>
-
-              {/* Floating Diagnostic Cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.7,
-                  type: "spring",
-                  stiffness: 100,
-                }}
-                className="absolute -top-10 -left-16 bg-white/10 backdrop-blur-2xl border border-white/20 p-6 rounded-2xl shadow-xl max-w-[250px] mt-14 ml-11"
-              >
-                <HeartPulse className="w-10 h-10 text-red-500 mb-4" />
-                <h4 className="text-xl font-bold mb-2 ">
-                  Real-Time Diagnostics
-                </h4>
-                <p className="text-sm text-gray-300">
-                  Continuous health monitoring with advanced AI algorithms
-                </p>
-              </motion.div>
-            </motion.div>
+            <Image
+              src="/docter.png"
+              alt="Advanced Healthcare Technology"
+              width={700}
+              height={800}
+              className="object-cover w-full h-[600px] rounded-3xl shadow-2xl"
+              priority
+            />
           </div>
         </div>
       </div>

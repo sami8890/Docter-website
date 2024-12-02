@@ -1,35 +1,40 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-    Send,
-    MapPin,
-    Phone,
-    Mail,
-    UserCheck,
-    MessageCircle
-} from "lucide-react";
+import { Send, MapPin, Phone, Mail, UserCheck, MessageCircle } from "lucide-react";
 import Link from "next/link";
+
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         phone: "",
-        message: ""
+        message: "",
     });
+
+    const [particles, setParticles] = useState<{ x: number; y: number }[]>([]);
+
+    // This effect ensures particles are only set on the client side
+    useEffect(() => {
+        const particlesArray = Array.from({ length: 50 }, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+        }));
+        setParticles(particlesArray);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Placeholder for form submission logic
         console.log("Form submitted", formData);
     };
 
@@ -37,22 +42,18 @@ const ContactPage = () => {
         <div className="relative min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#1e1e1e] overflow-hidden text-white">
             {/* Animated Background Particles */}
             <div className="absolute inset-0 z-0 opacity-30">
-                {[...Array(50)].map((_, i) => (
+                {particles.map((particle, i) => (
                     <motion.div
                         key={i}
-                        initial={{
-                            x: Math.random() * window.innerWidth,
-                            y: Math.random() * window.innerHeight,
-                            opacity: 0,
-                        }}
+                        initial={{ opacity: 0 }}
                         animate={{
                             x: [
-                                Math.random() * window.innerWidth,
+                                particle.x,
                                 Math.random() * window.innerWidth,
                                 Math.random() * window.innerWidth,
                             ],
                             y: [
-                                Math.random() * window.innerHeight,
+                                particle.y,
                                 Math.random() * window.innerHeight,
                                 Math.random() * window.innerHeight,
                             ],
@@ -84,7 +85,7 @@ const ContactPage = () => {
                             transition={{ duration: 0.7, delay: 0.2 }}
                             className="text-4xl xl:text-5xl font-extrabold leading-tight"
                         >
-                            Get in
+                            Get in{" "}
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500">
                                 Touch
                             </span>
@@ -106,16 +107,10 @@ const ContactPage = () => {
                         </div>
 
                         <div className="flex space-x-4 pt-4">
-                            <Link
-                                href="#"
-                                className="hover:bg-blue-500/20 p-2 rounded-full transition-all"
-                            >
+                            <Link href="#" className="hover:bg-blue-500/20 p-2 rounded-full transition-all">
                                 <UserCheck className="w-6 h-6 text-blue-400" />
                             </Link>
-                            <Link
-                                href="#"
-                                className="hover:bg-emerald-500/20 p-2 rounded-full transition-all"
-                            >
+                            <Link href="#" className="hover:bg-emerald-500/20 p-2 rounded-full transition-all">
                                 <MessageCircle className="w-6 h-6 text-emerald-400" />
                             </Link>
                         </div>
@@ -132,14 +127,8 @@ const ContactPage = () => {
                             className="bg-white/10 backdrop-blur-2xl border border-white/20 p-8 rounded-2xl space-y-6 mt-10"
                         >
                             <div className="grid md:grid-cols-2 gap-4">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.4 }}
-                                >
-                                    <label className="block text-sm text-gray-400 mb-2">
-                                        Full Name
-                                    </label>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Full Name</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -148,15 +137,9 @@ const ContactPage = () => {
                                         required
                                         className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.5 }}
-                                >
-                                    <label className="block text-sm text-gray-400 mb-2">
-                                        Email Address
-                                    </label>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Email Address</label>
                                     <input
                                         type="email"
                                         name="email"
@@ -165,17 +148,11 @@ const ContactPage = () => {
                                         required
                                         className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                     />
-                                </motion.div>
+                                </div>
                             </div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.6 }}
-                            >
-                                <label className="block text-sm text-gray-400 mb-2">
-                                    Phone Number
-                                </label>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Phone Number</label>
                                 <input
                                     type="tel"
                                     name="phone"
@@ -183,16 +160,10 @@ const ContactPage = () => {
                                     onChange={handleChange}
                                     className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
-                            </motion.div>
+                            </div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.7 }}
-                            >
-                                <label className="block text-sm text-gray-400 mb-2">
-                                    Your Message
-                                </label>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Your Message</label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
@@ -201,7 +172,7 @@ const ContactPage = () => {
                                     rows={4}
                                     className="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 ></textarea>
-                            </motion.div>
+                            </div>
 
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
