@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
                   ))}
                   <div className="pt-8 space-y-4 text-center w-full">
                     <Link
-                      href="/book-appointment"
+                      href="/under-development"
                       onClick={toggleMenu}
                       className="block bg-gradient-to-r from-blue-600 to-emerald-600 px-6 py-3 rounded-lg text-white w-full"
                     >
@@ -182,14 +182,14 @@ const Navbar: React.FC = () => {
                     </Link>
                     <div className="flex justify-center space-x-4 w-full">
                       <Link
-                        href="/under-development"
+                        href="/sign-up"
                         onClick={toggleMenu}
                         className="flex-1 text-white/80 hover:text-white border border-white/20 px-6 py-3 rounded-lg"
                       >
                         Login
                       </Link>
                       <Link
-                        href="/under-development"
+                        href="/sign-up"
                         onClick={toggleMenu}
                         className="flex-1 text-white/80 hover:text-white border border-white/20 px-6 py-3 rounded-lg"
                       >

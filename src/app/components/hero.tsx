@@ -82,7 +82,7 @@ const HealthHero = () => {
         });
       });
 
-      
+
 
       // Type-safe refs
       const badge = badgeRef.current;
@@ -233,7 +233,7 @@ const HealthHero = () => {
               className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
             >
               <Link
-                href="/book-consultation"
+                href="/contact"
                 className="group flex items-center justify-center bg-gradient-to-r from-blue-600 to-emerald-600 px-6 py-3 rounded-lg text-white font-semibold hover:scale-105 transition-transform"
               >
                 Book Consultation
@@ -290,7 +290,7 @@ const HealthHero = () => {
                 alt="Advanced Healthcare Technology"
                 width={700}
                 height={800}
-                className="object-cover w-full h-[600px]"
+                className=" sm:w-[700px] object-cover w-full h-[600px] "
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
